@@ -1,0 +1,35 @@
+<div class="card" *ngIf="games$ | async; else loading">
+  <div>
+    <h3>{{team.full_name}} [{{team.abbreviation}}] <span (click)="removeTrackedTeam(team.id)">&times;</span></h3>
+    <h6>{{team.conference}}ern conference</h6>
+  </div>
+  <hr/>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <p>
+          Results of past {{numberOfDays}} days:
+        </p>
+        <p>
+          <mark class="tag" *ngFor="let result of stats.lastGames" [class]="result">{{result}}</mark>
+        </p>
+        <p>Avg pts scored: <strong>{{stats.averagePointsScored}}</strong> </p>
+        <p>Avg pts conceded: <strong>{{stats.averagePointsConceded}}</strong> </p>
+
+      </div>
+      <div class="col-sm-6">
+        <img ngSrc="https://interstate21.com/nba-logos/{{team.abbreviation}}.png" width="138" height="138"/>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button class="tertiary" [routerLink]=" 'results/'+ team.abbreviation" [queryParams]="{numberOfDays}">See game results >></button>
+  </div>
+
+</div>
+
+<ng-template #loading>
+  <div class="card">
+    <span class="spinner"></span>
+  </div>
+</ng-template>

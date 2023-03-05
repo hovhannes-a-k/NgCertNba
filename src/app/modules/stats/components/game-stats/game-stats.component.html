@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-sm-11">
+    <app-game-stats-filters
+      [teams]="(teams$ | async)!"
+      (onTrackTeam)="trackTeam($event)"
+      (onNumberOfDaysChange)="changeNumberOfDays($event)"></app-game-stats-filters>
+  </div>
+
+</div>
+<div class="row">
+  <app-team-stats
+    class="col-sm-4"
+    *ngFor="let team of trackedTeamsService.trackedTeams$ | async; trackBy: trackById"
+    [team]="team"
+    [numberOfDays]="numberOfDays">
+  </app-team-stats>
+</div>

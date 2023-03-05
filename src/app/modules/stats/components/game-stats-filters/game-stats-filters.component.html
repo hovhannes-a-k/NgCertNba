@@ -1,0 +1,25 @@
+<select [(ngModel)]="conference">
+  <option selected [ngValue]="null">All</option>
+  <option [value]="conference.id" *ngFor="let conference of conferences">
+    {{conference.label}}
+  </option>
+</select>
+
+<select [(ngModel)]="division">
+  <option selected [ngValue]="null">All</option>
+  <option [value]="division.id" *ngFor="let division of divisions | filterBy:'conference':conference; trackBy: trackById">
+    {{division.label}}
+  </option>
+</select>
+
+<select #teamSelect>
+  <option [value]="team.id" *ngFor="let team of teams | filterBy:'conference':conference | filterBy: 'division':division; trackBy: trackById">
+    {{team.full_name}}
+  </option>
+</select>
+
+<select [ngModel]="numberOfDays" (ngModelChange)="changeNumberOfDays($event)" [value]="'20'">
+  <option *ngFor="let day of [6,12,20]">{{day}}</option>
+</select> days
+
+<button class="primary" (click)="trackTeam(+teamSelect.value)">Track team</button>
