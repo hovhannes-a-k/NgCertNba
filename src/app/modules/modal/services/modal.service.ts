@@ -45,14 +45,14 @@ export class ModalService {
     return [[componentRef.location.nativeElement]];
   }
 
-  closeModal() {
+  closeModal(): void {
     const modal = this.componentRef.location.nativeElement;
     modal.parentNode.removeChild(modal);
     this.componentSubscriber.complete();
     this.componentRef.destroy();
   }
 
-  confirm(message = '') {
+  confirm(message = ''): void {
     this.componentSubscriber.next(message);
     this.closeModal();
   }
